@@ -2,10 +2,12 @@ package by.htp.belavia.tests;
 
 import org.testng.annotations.Test;
 
-import by.htp.belavia.entity.Flight;
+import by.htp.belavia.entity.Ticket;
+import by.htp.belavia.pages.BookingPage;
 
 
 public class SearchForFlight extends BaseTest{
+
 
 	@Test
 	public void searchOneWayTicketToRiga() {
@@ -13,8 +15,9 @@ public class SearchForFlight extends BaseTest{
 		steps.openBelaviaPage();
 		steps.setDepatureAndDestination("Minsk", "Riga");
 		steps.setOneWayOrReturnTicket("One-way");
-		Flight flight = steps.searchFlight();
-		System.out.println(flight);
+		steps.searchFlight();
+		BookingPage page = steps.getResultsOfOneWayTicketSearch();
+	
 	       
 		
 	}

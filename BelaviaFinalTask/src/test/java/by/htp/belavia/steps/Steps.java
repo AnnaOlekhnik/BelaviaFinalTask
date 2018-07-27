@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.openqa.selenium.WebDriver;
 
-import by.htp.belavia.entity.Flight;
+import by.htp.belavia.entity.Ticket;
 import by.htp.belavia.pages.BookingPage;
 import by.htp.belavia.pages.MainPage;
 
@@ -13,7 +13,7 @@ public class Steps {
 	private WebDriver driver;
 	private MainPage mainPage;
 	private BookingPage bookingPage;
-	private Flight flight;
+	private Ticket ticket;
 
 	public Steps(WebDriver driver) {
 		this.driver = driver;
@@ -27,6 +27,7 @@ public class Steps {
 	}
 
 	public void setDepatureAndDestination(String departure, String destination) {
+		
 		mainPage = new MainPage(driver);
 		mainPage.setDeparture(departure);
 		mainPage.setDestination(destination);
@@ -43,18 +44,36 @@ public class Steps {
 		} else {
 			System.out.println("Incorrect type of ticket");
 		}
-
 	}
 
-	public Flight searchFlight() {
+	public void searchFlight() {
 
 		mainPage = new MainPage(driver);
-		mainPage.selectAvailableDepatureDate();
+		mainPage.setDepatureDate();
 		mainPage.clickSearch();
 
 		BookingPage bookingPage = new BookingPage(driver);
-		Flight flight = bookingPage.viewFlightInfo();
 
-		return flight;
 	}
+	
+	public BookingPage getResultsOfOneWayTicketSearch() {
+		
+		BookingPage bookingPage = new BookingPage(driver);
+		List<Ticket> tickets = bookingPage.getOneWayTickets();
+		bookingPage.sortByPrice(tickets);
+		bookingPage.printListOfTickets(tickets);
+		
+		return bookingPage;
+	}
+
+	public BookingPage getResultsOfReturnTicket() {
+		
+		BookingPage bookingPage = new BookingPage(driver);
+		List<Ticket> tickets = bookingPage.getReturnTickets();
+		bookingPage.sortByFlightDate(tickets);
+		bookingPage.printListOfTickets(tickets);
+		
+		return bookingPage;
+	}
+
 }
