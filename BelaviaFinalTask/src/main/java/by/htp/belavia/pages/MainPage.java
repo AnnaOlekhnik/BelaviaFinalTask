@@ -19,20 +19,14 @@ public class MainPage extends AbstractPage {
 
 	private static final String BASE_URL = "https://belavia.by";
 
-	@FindBy(xpath = "//label[@for='OriginLocation_Combobox']")
-	private WebElement depatureField;
+	@FindBy(xpath = "//div[@class='wrapper ui-trigger-input']/a[@class='trigger']")
+	private List <WebElement> countriesFields;
+	
+	@FindBy(xpath = "//ul[@id='ui-id-2']/li/a")
+	private List <WebElement> depatureCountries;
 
-	@FindBy(xpath = "//label[@for='DestinationLocation_Combobox']")
-	private WebElement destinationField;
-
-	@FindBy(xpath = "//*[@class='button btn-large btn btn-b2-green ui-corner-all']")
-	private WebElement searchButton;
-
-	@FindBy(xpath = "//i[@class='icon-calendar']")
-	private WebElement dateField;
-
-	@FindBy(xpath = "//a[@class='ui-state-default']")
-	private WebElement depatureDate;
+	@FindBy(xpath = "//ul[@id='ui-id-3']/li/a")
+	private List <WebElement> destinationCountries;
 
 	@FindBy(xpath = "//label[@for='JourneySpan_Ow']")
 	private WebElement oneWayTicket;
@@ -40,12 +34,17 @@ public class MainPage extends AbstractPage {
 	@FindBy(xpath = "//label[@for='JourneySpan_Rt']")
 	private WebElement returnTicket;
 
-	@FindAll(@FindBy(xpath = "//*[@class='ui-datepicker-group ui-datepicker-group-last']/descendant::*[contains(@class,'ui-state-default')]"))
-	private List<WebElement> availableDepatureDates;
+	@FindBy(xpath = "//i[@class='icon-calendar']")
+	private WebElement dateField;
 
-	// @FindAll(@FindBy(xpath = "//*[@class='flight
-	// inbound']/descendant::*[contains(@class,'day-with-availability')]"))
-	// private List<WebElement> availableArrivalDates;
+	@FindBy(xpath = "//a[@class='ui-state-default']")
+	private WebElement depatureDate;
+
+	@FindBy(xpath = "//td[@data-month='7']/a[(text()='1')]")
+	WebElement firstOfAugust;
+
+	@FindBy(xpath = "//*[@class='button btn-large btn btn-b2-green ui-corner-all']")
+	private WebElement searchButton;
 
 	private Actions actions = new Actions(driver);
 
@@ -61,28 +60,33 @@ public class MainPage extends AbstractPage {
 
 	public void setDeparture(String depature) {
 
-		actions.moveToElement(depatureField);
-		actions.click();
-		actions.sendKeys(depature);
-		actions.build().perform();
+		WebElement departureArrow = countriesFields.get(0);
+		departureArrow.click();
+
+		for (WebElement element : depatureCountries) {
+			if (element.getText().contains(depature)) {
+				element.click();
+			}
+		}
 	}
 
 	public void setDestination(String destination) {
 
-		actions.moveToElement(destinationField);
-		actions.click();
-		actions.sendKeys(destination);
-		actions.build().perform();
+		WebElement departureArrow = countriesFields.get(1);
+		departureArrow.click();
+
+		for (WebElement element : destinationCountries) {
+			if (element.getText().contains(destination)) {
+				element.click();
+			}
+		}
 	}
 
 	public void clickSearch() {
-
-	 searchButton.click();
-
+		searchButton.click();
 	}
 
 	public void setOneWayTicketType() {
-
 		oneWayTicket.click();
 	}
 
@@ -90,28 +94,16 @@ public class MainPage extends AbstractPage {
 		returnTicket.click();
 	}
 
-	public void selectAvailableDepatureDate() {
-
+	public void setDepatureDate() {
 		dateField.click();
-
-		WebElement dateWidget = driver.findElement(By.xpath("//table[@class='ui-datepicker-calendar']"));
-		dateWidget.click();
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-		List<WebElement> columns = dateWidget.findElements(By.tagName("a"));
-
-		for (WebElement cell: columns) {
-			if(cell.getText().equals("1")) {
-				cell.findElement(By.linkText("1")).click();
-				driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-				break;
-			}
-		}
-		
-		
-		// actions.moveToElement(depatureDate);
-		// actions.click();
-		// actions.build().perform();
+		firstOfAugust.click();
 
 	}
+
+	public void setReturnDate() {
+		firstOfAugust.click();
+
+	}
+
 
 }
