@@ -1,20 +1,18 @@
 package by.htp.belavia.entity;
 
-public class Flight {
+public class Ticket implements Comparable<Ticket> {
 
 	private String date;
-	private String depatureTime;
-	private String arrivalTime;
-	private String duration;
+	private String returnDate;
+	private String price;
 	
-	public Flight() {}
+	public Ticket() {}
 
-	public Flight(String date, String depatureTime, String arrivalTime, String duration) {
+	public Ticket(String date, String returnDate, String price) {
 		super();
 		this.date = date;
-		this.depatureTime = depatureTime;
-		this.arrivalTime = arrivalTime;
-		this.duration = duration;
+		this.returnDate = returnDate;
+		this.price = price;
 	}
 
 	public String getDate() {
@@ -25,38 +23,29 @@ public class Flight {
 		this.date = date;
 	}
 
-	public String getDepatureTime() {
-		return depatureTime;
+	public String getReturnDate() {
+		return returnDate;
 	}
 
-	public void setDepatureTime(String depatureTime) {
-		this.depatureTime = depatureTime;
+	public void setReturnDate(String returnDate) {
+		this.returnDate = returnDate;
 	}
 
-	public String getArrivalTime() {
-		return arrivalTime;
+	public String getPrice() {
+		return price;
 	}
 
-	public void setArrivalTime(String arrivalTime) {
-		this.arrivalTime = arrivalTime;
-	}
-
-	public String getDuration() {
-		return duration;
-	}
-
-	public void setDuration(String duration) {
-		this.duration = duration;
+	public void setPrice(String price) {
+		this.price = price;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((arrivalTime == null) ? 0 : arrivalTime.hashCode());
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
-		result = prime * result + ((depatureTime == null) ? 0 : depatureTime.hashCode());
-		result = prime * result + ((duration == null) ? 0 : duration.hashCode());
+		result = prime * result + ((price == null) ? 0 : price.hashCode());
+		result = prime * result + ((returnDate == null) ? 0 : returnDate.hashCode());
 		return result;
 	}
 
@@ -68,35 +57,46 @@ public class Flight {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Flight other = (Flight) obj;
-		if (arrivalTime == null) {
-			if (other.arrivalTime != null)
-				return false;
-		} else if (!arrivalTime.equals(other.arrivalTime))
-			return false;
+		Ticket other = (Ticket) obj;
 		if (date == null) {
 			if (other.date != null)
 				return false;
 		} else if (!date.equals(other.date))
 			return false;
-		if (depatureTime == null) {
-			if (other.depatureTime != null)
+		if (price == null) {
+			if (other.price != null)
 				return false;
-		} else if (!depatureTime.equals(other.depatureTime))
+		} else if (!price.equals(other.price))
 			return false;
-		if (duration == null) {
-			if (other.duration != null)
+		if (returnDate == null) {
+			if (other.returnDate != null)
 				return false;
-		} else if (!duration.equals(other.duration))
+		} else if (!returnDate.equals(other.returnDate))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Flight [date=" + date + ", depatureTime=" + depatureTime + ", arrivalTime=" + arrivalTime
-				+ ", duration=" + duration + "]";
+		return "Ticket [date=" + date + ", returnDate=" + returnDate + ", price=" + price + "]";
 	}
-	
+
+	@Override
+	public int compareTo(Ticket t) {
+		String thisCostString = this.price.replaceAll("[^0-9]", "");
+		int cost = Integer.parseInt(thisCostString);
+
+		String compared = t.getPrice().replaceAll("[^0-9]", "");
+		int comparedCost = Integer.parseInt(compared);
+		if (cost > comparedCost) {
+			return 1;
+		} else if (cost < comparedCost) {
+			return -1;
+		} else {
+			return 0;
+		}
+
+	}
+
 	
 }
