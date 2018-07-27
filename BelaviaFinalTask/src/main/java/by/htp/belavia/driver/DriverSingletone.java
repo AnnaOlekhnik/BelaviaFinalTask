@@ -9,7 +9,6 @@ public class DriverSingletone {
 	private static final String CHROME = "webdriver.chrome.driver";
 	private static final String CHROME_PATH = "c:\\Driver\\chromedriver.exe";
 
-	@SuppressWarnings("unused")
 	private static WebDriver instance = null;
 	private static WebDriver driver;
 

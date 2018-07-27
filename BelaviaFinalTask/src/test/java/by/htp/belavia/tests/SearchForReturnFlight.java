@@ -14,9 +14,7 @@ public class SearchForReturnFlight extends BaseTest {
 		steps.setOneWayOrReturnTicket("Return");
 		steps.searchReturnFlight();
 		BookingPage page = steps.getResultsOfReturnTicketSearch();
-	
-	       
-		
+			
 	}
 	
 }

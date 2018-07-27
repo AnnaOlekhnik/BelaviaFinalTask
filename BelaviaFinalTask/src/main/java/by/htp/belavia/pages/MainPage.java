@@ -1,19 +1,12 @@
 package by.htp.belavia.pages;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class MainPage extends AbstractPage {
 
@@ -41,7 +34,7 @@ public class MainPage extends AbstractPage {
 	private WebElement depatureDate;
 
 	@FindBy(xpath = "//td[@data-month='7']/a[(text()='1')]")
-	WebElement firstOfAugust;
+	private WebElement firstOfAugust;
 
 	@FindBy(xpath = "//*[@class='button btn-large btn btn-b2-green ui-corner-all']")
 	private WebElement searchButton;

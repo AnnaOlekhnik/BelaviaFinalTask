@@ -52,7 +52,18 @@ public class Steps {
 		mainPage.setDepatureDate();
 		mainPage.clickSearch();
 
-		BookingPage bookingPage = new BookingPage(driver);
+		bookingPage = new BookingPage(driver);
+
+	}
+	
+	public void searchReturnFlight() {
+
+		mainPage = new MainPage(driver);
+		mainPage.setDepatureDate();
+		mainPage.setReturnDate();
+		mainPage.clickSearch();
+
+		bookingPage = new BookingPage(driver);
 
 	}
 	
@@ -61,17 +72,17 @@ public class Steps {
 		BookingPage bookingPage = new BookingPage(driver);
 		List<Ticket> tickets = bookingPage.getOneWayTickets();
 		bookingPage.sortByPrice(tickets);
-		bookingPage.printListOfTickets(tickets);
+		bookingPage.printListOfOneWayTickets(tickets);
 		
 		return bookingPage;
 	}
 
-	public BookingPage getResultsOfReturnTicket() {
+	public BookingPage getResultsOfReturnTicketSearch() {
 		
 		BookingPage bookingPage = new BookingPage(driver);
 		List<Ticket> tickets = bookingPage.getReturnTickets();
 		bookingPage.sortByFlightDate(tickets);
-		bookingPage.printListOfTickets(tickets);
+		bookingPage.printListOfReturnTickets(tickets);
 		
 		return bookingPage;
 	}
