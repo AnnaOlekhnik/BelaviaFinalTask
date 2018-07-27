@@ -1,5 +1,4 @@
 package by.htp.belavia.driver;
-
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
@@ -10,6 +9,7 @@ public class DriverSingletone {
 	private static final String CHROME = "webdriver.chrome.driver";
 	private static final String CHROME_PATH = "c:\\Driver\\chromedriver.exe";
 
+	@SuppressWarnings("unused")
 	private static WebDriver instance = null;
 	private static WebDriver driver;
 
@@ -22,10 +22,8 @@ public class DriverSingletone {
 			driver = new ChromeDriver();
 			driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-			driver.manage().window().maximize();
-			
+			driver.manage().window().maximize();	
 		}
-
 		return driver;
 	}
 

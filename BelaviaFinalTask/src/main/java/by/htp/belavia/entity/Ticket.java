@@ -81,6 +81,10 @@ public class Ticket implements Comparable<Ticket> {
 		return "Ticket [date=" + date + ", returnDate=" + returnDate + ", price=" + price + "]";
 	}
 
+	public String toStringOneWay() {
+		return "Ticket [date=" + date +  ", price=" + price + "]";
+	}
+	
 	@Override
 	public int compareTo(Ticket t) {
 		String thisCostString = this.price.replaceAll("[^0-9]", "");
